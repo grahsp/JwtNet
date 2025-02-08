@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -26,6 +27,25 @@ namespace JwtNet
             );
 
             return new JwtSecurityTokenHandler().WriteToken(jwtToken);
+        }
+
+        public ClaimsPrincipal ValidateToken(string token)
+        {
+            var validationParams = new TokenValidationParameters
+            {
+                IssuerSigningKey = _signingStrategy.GetSecurityKey(),
+                ValidateIssuer = _options.ValidateIssuer,
+                ValidIssuer = _options.Issuer,
+                ValidateAudience = _options.ValidateAudience,
+                ValidAudience = _options.Audience,
+                ValidateLifetime = _options.ValidateLifetime,
+                ClockSkew = _options.ClockSkew
+            };
+
+            var principal = new JwtSecurityTokenHandler()
+                .ValidateToken(token, validationParams, out var _);
+
+            return principal;
         }
     }
 }
