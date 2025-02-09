@@ -1,4 +1,4 @@
-﻿namespace JwtNet
+﻿namespace JwtNet.Options
 {
     public class JwtNetOptions
     {
@@ -77,7 +77,8 @@
         public int ExpiresInMinutes
         {
             get => _expiresInMinutes;
-            set {
+            set
+            {
                 _expiresInMinutes = value > 0 ? value : 0;
                 ValidateLifetime = value > 0;
             }

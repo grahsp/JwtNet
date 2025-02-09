@@ -1,9 +1,11 @@
-﻿using Microsoft.Extensions.Options;
+﻿using JwtNet.Options;
+using JwtNet.Strategies;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace JwtNet
+namespace JwtNet.Services
 {
     public class JwtNet
     {

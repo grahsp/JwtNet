@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using JwtNet.Builderss;
+using JwtNet.Options;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace JwtNet
+namespace JwtNet.Extensions
 {
     public static class ServiceCollectionExtensions
     {

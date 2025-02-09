@@ -1,4 +1,4 @@
-﻿namespace JwtNet
+﻿namespace JwtNet.Models
 {
     public class TokenResponse
     {

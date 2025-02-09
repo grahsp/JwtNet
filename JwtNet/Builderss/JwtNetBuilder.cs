@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using JwtNet.Strategies;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace JwtNet
+namespace JwtNet.Builderss
 {
     public class JwtNetBuilder
     {
