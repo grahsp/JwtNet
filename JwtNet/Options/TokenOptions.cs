@@ -1,6 +1,6 @@
 ﻿namespace JwtNet.Options
 {
-    public class JwtNetOptions
+    public class TokenOptions
     {
         private string? _issuer;
 

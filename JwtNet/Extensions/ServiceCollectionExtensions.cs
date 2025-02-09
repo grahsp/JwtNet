@@ -1,5 +1,6 @@
-﻿using JwtNet.Builderss;
+﻿using JwtNet.Builders;
 using JwtNet.Options;
+using JwtNet.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace JwtNet.Extensions
@@ -11,10 +12,10 @@ namespace JwtNet.Extensions
             return new JwtNetBuilder(services);
         }
 
-        public static JwtNetBuilder AddJwtNet(this IServiceCollection services, Action<JwtNetOptions> options)
+        public static JwtNetBuilder AddJwtNet(this IServiceCollection services, Action<TokenOptions> options)
         {
             services.Configure(options);
-            services.AddSingleton<JwtNet>();
+            services.AddSingleton<TokenService>();
 
             return new JwtNetBuilder(services);
         }

@@ -1,7 +1,7 @@
 ﻿using JwtNet.Strategies;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace JwtNet.Builderss
+namespace JwtNet.Builders
 {
     public class JwtNetBuilder
     {

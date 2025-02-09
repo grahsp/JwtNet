@@ -7,20 +7,20 @@ using System.Security.Claims;
 
 namespace JwtNet.Services
 {
-    public class JwtNet
+    public class TokenService
     {
-        private readonly JwtNetOptions _options;
+        private readonly TokenOptions _options;
         private readonly ISigningStrategy _signingStrategy;
 
-        public JwtNet(ISigningStrategy signingStrategy, IOptions<JwtNetOptions> options)
+        public TokenService(ISigningStrategy signingStrategy, IOptions<TokenOptions> options)
         {
             _options = options.Value;
             _signingStrategy = signingStrategy;
         }
 
-        public JwtNet(ISigningStrategy signingStrategy)
+        public TokenService(ISigningStrategy signingStrategy)
         {
-            _options = new JwtNetOptions();
+            _options = new TokenOptions();
             _signingStrategy = signingStrategy;
         }
 
@@ -44,7 +44,7 @@ namespace JwtNet.Services
             }
             catch (ArgumentException ex)
             {
-                throw new ArgumentException("Invalid argument(s) passed when generating the token. Please check the issuer, audience, or expiration time for correctness.", ex);
+                throw new ArgumentException("Invalid argument(s) passed when generating the token. Please check the issuer, audience, secret or key for correctness.", ex);
             }
             catch (Exception ex)
             {
