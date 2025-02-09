@@ -10,13 +10,19 @@ namespace JwtNet
         private readonly JwtNetOptions _options;
         private readonly ISigningStrategy _signingStrategy;
 
-        public JwtNet(IOptions<JwtNetOptions> options)
+        public JwtNet(ISigningStrategy signingStrategy, IOptions<JwtNetOptions> options)
         {
             _options = options.Value;
-            _signingStrategy = _options.SigningStrategy;
+            _signingStrategy = signingStrategy;
         }
 
-        public string CreateToken(IEnumerable<Claim> claims)
+        public JwtNet(ISigningStrategy signingStrategy)
+        {
+            _options = new JwtNetOptions();
+            _signingStrategy = signingStrategy;
+        }
+
+        private string GenerateToken(IEnumerable<Claim>? claims = null)
         {
             var jwtToken = new JwtSecurityToken(
                 issuer: _options.Issuer,
@@ -29,7 +35,7 @@ namespace JwtNet
             return new JwtSecurityTokenHandler().WriteToken(jwtToken);
         }
 
-        public ClaimsPrincipal ValidateToken(string token)
+        private ClaimsPrincipal ValidateToken(string token)
         {
             var validationParams = new TokenValidationParameters
             {
