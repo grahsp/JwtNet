@@ -22,17 +22,32 @@ namespace JwtNet
             _signingStrategy = signingStrategy;
         }
 
-        private string GenerateToken(IEnumerable<Claim>? claims = null)
+        private string? GenerateToken(IEnumerable<Claim>? claims = null)
         {
-            var jwtToken = new JwtSecurityToken(
-                issuer: _options.Issuer,
-                audience: _options.Audience,
-                claims: claims,
-                expires: _options.Expires,
-                signingCredentials: _signingStrategy.GetSigningCredentials()
-            );
+            try
+            {
+                var jwtToken = new JwtSecurityToken(
+                    issuer: _options.Issuer,
+                    audience: _options.Audience,
+                    claims: claims,
+                    expires: _options.Expires,
+                    signingCredentials: _signingStrategy.GetSigningCredentials()
+                );
 
-            return new JwtSecurityTokenHandler().WriteToken(jwtToken);
+                return new JwtSecurityTokenHandler().WriteToken(jwtToken);
+            }
+            catch (SecurityTokenEncryptionFailedException ex)
+            {
+                throw new InvalidOperationException("Invalid Signing Strategy: The signing credentials or algorithm are incompatible or incorrectly configured.", ex);
+            }
+            catch (ArgumentException ex)
+            {
+                throw new ArgumentException("Invalid argument(s) passed when generating the token. Please check the issuer, audience, or expiration time for correctness.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An unexpected error occurred while generating the token.", ex);
+            }
         }
 
         private ClaimsPrincipal ValidateToken(string token)
