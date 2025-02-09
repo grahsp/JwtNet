@@ -2,10 +2,6 @@
 {
     public class JwtNetOptions
     {
-        public required ISigningStrategy SigningStrategy { get; set; }
-
-
-
         private string? _issuer;
 
         /// <summary>
@@ -87,6 +83,14 @@
             }
         }
 
+        /// <summary>
+        /// The expiration time of the token <see cref="ExpiresInMinutes"/>.
+        /// </summary>
+        public DateTime Expires
+        {
+            get => DateTime.UtcNow + TimeSpan.FromMinutes(_expiresInMinutes);
+        }
+
 
 
         /// <summary>
@@ -96,6 +100,5 @@
         /// This property is useful for handling minor time discrepancies between the server and clients. Defaults to 5 minutes.
         /// </remarks>
         public TimeSpan ClockSkew { get; set; }
-
     }
 }

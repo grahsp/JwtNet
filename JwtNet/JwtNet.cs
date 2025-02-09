@@ -28,7 +28,7 @@ namespace JwtNet
                 issuer: _options.Issuer,
                 audience: _options.Audience,
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(_options.ExpiresInMinutes),
+                expires: _options.Expires,
                 signingCredentials: _signingStrategy.GetSigningCredentials()
             );
 
